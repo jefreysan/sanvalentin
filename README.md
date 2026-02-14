@@ -29,6 +29,28 @@ Un jardín interactivo donde cultivas tulipanes de colores suaves mientras recib
   - Al terminar, envía la pregunta "¿Cuánto me quieres?" a WhatsApp
   - Número: +51 994 240 168
 
+### 🎵 Música de Tinny
+- **Reproducción Aleatoria de Canciones de Tinny**
+- **5 Canciones Seleccionadas:**
+  - SydGHrvcTZA - Ella Baila Sola
+  - aaCQGAREeZk - Canción 2
+  - 3BVHzsglnto - Canción 3
+  - 4k1fm6YNsg8 - Canción 4
+  - FaQiQ3zuzPg - Canción 5
+- **Panel Compacto de Control:**
+  - Ubicado debajo de la hora (esquina superior derecha)
+  - Diseño minimalista y elegante
+  - Muestra el título de la canción actual
+- **Botones de Control:**
+  - ▶️ Reproducir - Reproduce una canción aleatoria de Tinny
+  - ⏹️ Detener - Detiene la reproducción
+  - ✕ Cerrar - Cierra el panel
+- **Cómo Usar:**
+  1. Haz clic en el botón 🎵 Música (esquina inferior derecha)
+  2. Se abrirá el panel de control debajo de la hora
+  3. Haz clic en "▶️ Reproducir"
+  4. Se abrirá YouTube en una nueva ventana con la canción de Tinny
+
 ### 🌅 Ciclo Día/Noche
 - **Sincronizado con Hora Peruana (UTC-5)**
 - **4 Períodos:**
@@ -78,6 +100,52 @@ Todo se guarda en `localStorage`:
 - **JavaScript Vanilla**
 - **SVG** (Gráficos)
 - **localStorage** (Persistencia)
+- **YouTube API** (Música)
+
+## 🎵 Personalizar Música
+
+El proyecto incluye un archivo `config.js` que facilita la personalización de canciones y preguntas.
+
+### Agregar Canciones de Tinny
+
+1. Abre el archivo `config.js`
+2. Busca la sección `const TINNY_SONGS = [`
+3. Reemplaza los IDs con los de tus canciones favoritas del canal de Tinny:
+   - Abre https://www.youtube.com/channel/UCJusEPcWIH9EyYSCqGP-1ew
+   - Selecciona una canción
+   - Copia el ID de la URL: `youtube.com/watch?v=**ID_AQUI**`
+4. Ejemplo:
+   ```javascript
+   const TINNY_SONGS = [
+     "7qiZfIl1KAI",  // Tu canción favorita
+     "kJQP7kiw9Fk",  // Otra canción
+     "9bZkp7q19f0"   // Más canciones
+   ];
+   ```
+5. Guarda el archivo y recarga la página
+
+### Personalizar Preguntas
+
+1. Abre `config.js`
+2. Busca `const CUSTOM_QUESTIONS = [`
+3. Modifica las preguntas y respuestas:
+   ```javascript
+   const CUSTOM_QUESTIONS = [
+     {
+       question: 'Tu pregunta aquí?',
+       options: ['Opción 1', 'Opción 2', 'Opción 3'],
+       correct: 0  // Índice de la respuesta correcta (0, 1 o 2)
+     }
+   ];
+   ```
+
+### Cambiar Número de WhatsApp
+
+En `config.js`, busca:
+```javascript
+const WHATSAPP_NUMBER = "51994240168";
+```
+Y reemplaza con tu número (sin el +).
 
 ## 📱 Compatibilidad
 

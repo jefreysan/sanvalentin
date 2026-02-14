@@ -1,3 +1,127 @@
+// Sistema de música intermitente de Tinny
+let musicTimeout = null;
+let isMusicPlaying = false;
+let musicPanelOpen = false;
+
+// Usar la lista de canciones de config.js si existe, sino usar la lista por defecto
+const tinnyPlaylist = (typeof TINNY_SONGS !== 'undefined') ? TINNY_SONGS : [
+  { id: "SydGHrvcTZA", title: "Tinny - Canción 1" },
+  { id: "aaCQGAREeZk", title: "Tinny - Canción 2" },
+  { id: "3BVHzsglnto", title: "Tinny - Canción 3" },
+  { id: "4k1fm6YNsg8", title: "Tinny - Canción 4" },
+  { id: "FaQiQ3zuzPg", title: "Tinny - Canción 5" }
+];
+
+function getRandomTinnySong() {
+  return tinnyPlaylist[Math.floor(Math.random() * tinnyPlaylist.length)];
+}
+
+function showNowPlaying(songTitle) {
+  const nowPlayingDiv = document.getElementById('nowPlaying');
+  if (nowPlayingDiv) {
+    nowPlayingDiv.innerHTML = `<div class="text-sm font-semibold text-green-600">🎵 Reproduciendo: ${songTitle}</div>`;
+    nowPlayingDiv.classList.remove('hidden');
+  }
+}
+
+function hideNowPlaying() {
+  const nowPlayingDiv = document.getElementById('nowPlaying');
+  if (nowPlayingDiv) {
+    nowPlayingDiv.classList.add('hidden');
+  }
+}
+
+function playRandomMusic() {
+  const song = getRandomTinnySong();
+  
+  // Crear un iframe para reproducir desde YouTube
+  const iframe = document.createElement('iframe');
+  iframe.width = "0";
+  iframe.height = "0";
+  iframe.src = `https://www.youtube.com/embed/${song.id}?autoplay=1&controls=0`;
+  iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+  iframe.style.display = "none";
+  iframe.style.border = "none";
+  iframe.style.visibility = "hidden";
+  iframe.style.position = "absolute";
+  iframe.style.left = "-9999px";
+  
+  // Limpiar iframe anterior si existe
+  const oldIframe = document.getElementById('musicIframe');
+  if (oldIframe) oldIframe.remove();
+  
+  iframe.id = 'musicIframe';
+  document.body.appendChild(iframe);
+  
+  isMusicPlaying = true;
+  
+  // Mostrar la canción que se está reproduciendo
+  showNowPlaying(song.title);
+  
+  // Detener la música después de 2-4 minutos (intermitente)
+  const stopTime = Math.random() * 120000 + 120000; // 2-4 minutos
+  setTimeout(() => {
+    iframe.src = "";
+    isMusicPlaying = false;
+    hideNowPlaying();
+    scheduleNextMusic();
+  }, stopTime);
+}
+
+function scheduleNextMusic() {
+  // Esperar 3-8 minutos antes de reproducir la siguiente canción
+  const waitTime = Math.random() * 300000 + 180000; // 3-8 minutos
+  musicTimeout = setTimeout(() => {
+    playRandomMusic();
+  }, waitTime);
+}
+
+function startMusicSystem() {
+  // Iniciar el sistema de música después de 5 segundos
+  setTimeout(() => {
+    scheduleNextMusic();
+  }, 5000);
+}
+
+function toggleMusicPanel() {
+  const musicPanel = document.getElementById('musicPanel');
+  musicPanelOpen = !musicPanelOpen;
+  
+  if (musicPanelOpen) {
+    musicPanel.style.display = 'block';
+  } else {
+    musicPanel.style.display = 'none';
+  }
+}
+
+function playRandomMusicManual() {
+  const song = getRandomTinnySong();
+  const nowPlayingText = document.getElementById('nowPlayingText');
+  const audioPlayer = document.getElementById('audioPlayer');
+  
+  // Usar un servicio de proxy para obtener audio de YouTube
+  const audioUrl = `https://www.youtube.com/watch?v=${song.id}`;
+  
+  // Mostrar la canción
+  nowPlayingText.textContent = `🎵 ${song.title}`;
+  
+  // Abrir YouTube en una nueva ventana
+  window.open(audioUrl, '_blank');
+  
+  isMusicPlaying = true;
+}
+
+function stopMusicManual() {
+  const audioPlayer = document.getElementById('audioPlayer');
+  const nowPlayingText = document.getElementById('nowPlayingText');
+  
+  audioPlayer.pause();
+  audioPlayer.src = '';
+  nowPlayingText.textContent = 'Selecciona una canción';
+  
+  isMusicPlaying = false;
+}
+
 function createCloudSVG(text = 'Made') {
   return `<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" class="w-40 h-16">
     <!-- Nube simple y realista -->
@@ -803,3 +927,6 @@ setupDailyGrowth();
 
 createGarden();
 setTimeout(() => showMessage(), 500);
+
+// Iniciar sistema de música intermitente
+startMusicSystem();
