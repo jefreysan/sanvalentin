@@ -122,6 +122,11 @@ function stopMusicManual() {
   isMusicPlaying = false;
 }
 
+// Obtener zona horaria del dispositivo
+function getDeviceTimezone() {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
 // Detectar tamaño del dispositivo
 function getDeviceSize() {
   const width = window.innerWidth;
@@ -340,11 +345,6 @@ function generateStars() {
 function getPeruTime() {
   const now = new Date();
   return now.getHours();
-}
-
-// Obtener zona horaria del dispositivo
-function getDeviceTimezone() {
-  return Intl.DateTimeFormat().resolvedOptions().timeZone;
 }
 
 // Mostrar zona horaria del dispositivo
