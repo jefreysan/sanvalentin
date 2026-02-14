@@ -1016,7 +1016,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Actualizar reloj cada segundo
   updateClock();
-  updateTimezone();
   setInterval(updateClock, 1000);
 
   // Las frases aparecen al hacer clic en las nubes (no automático)
