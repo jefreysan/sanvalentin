@@ -336,22 +336,36 @@ function generateStars() {
   }
 }
 
-// Sistema de ciclo día/noche según hora peruana (UTC-5)
+// Sistema de ciclo día/noche según hora del dispositivo
 function getPeruTime() {
   const now = new Date();
-  const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
-  const peruTime = new Date(utcTime - (5 * 60 * 60 * 1000));
-  return peruTime.getHours();
+  return now.getHours();
 }
 
-// Actualizar reloj en tiempo real
+// Mostrar zona horaria del dispositivo
+function updateTimezone() {
+  const timezone = getDeviceTimezone();
+  const timezoneDisplay = document.getElementById('timezoneDisplay');
+  if (timezoneDisplay) {
+    // Obtener nombre corto de la zona horaria
+    const parts = timezone.split('/');
+    const shortName = parts[parts.length - 1].replace(/_/g, ' ');
+    timezoneDisplay.textContent = shortName;
+  }
+}
+
+// Obtener hora del dispositivo
+function getDeviceTime() {
+  const now = new Date();
+  return now.getHours();
+}
+
+// Actualizar reloj en tiempo real - Hora del dispositivo
 function updateClock() {
   const now = new Date();
-  const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
-  const peruTime = new Date(utcTime - (5 * 60 * 60 * 1000));
   
-  const hours = String(peruTime.getHours()).padStart(2, '0');
-  const minutes = String(peruTime.getMinutes()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
   
   const clockDisplay = document.getElementById('clockDisplay');
   if (clockDisplay) {
@@ -647,7 +661,7 @@ function createGarden() {
   const plantsArea = document.getElementById('plantsArea');
   plantsArea.innerHTML = '';
   plants = [];
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 4; i++) {
     const tulip = new Tulip(i);
     plants.push(tulip);
     plantsArea.appendChild(tulip.render());
@@ -766,7 +780,7 @@ function showFloatingPhrase() {
 
 
 function resetGarden() {
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 4; i++) {
     localStorage.removeItem(`tulip_${i}_growthStage`);
     localStorage.removeItem(`tulip_${i}_waterings`);
     localStorage.removeItem(`tulip_${i}_lastWatered`);
@@ -954,6 +968,7 @@ setInterval(updateDayNightCycle, 60000);
 
 // Actualizar reloj cada segundo
 updateClock();
+updateTimezone();
 setInterval(updateClock, 1000);
 
 // Las frases aparecen al hacer clic en las nubes (no automático)

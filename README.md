@@ -5,8 +5,8 @@ Un jardín interactivo donde cultivas tulipanes de colores suaves mientras recib
 ## ✨ Características
 
 ### 🌱 Sistema de Cultivo
-- **6 Tulipanes de Colores Suaves:**
-  - Blanco, Tierra, Amarillo, Rosa Suave, Lavanda, Melocotón
+- **4 Flores de Colores Suaves:**
+  - Blanco, Tierra, Amarillo, Rosa Suave
 - **5 Etapas de Crecimiento:**
   - Semilla → Germinando → Tallo → Creciendo → Flor
 - **Crecimiento Automático:**
@@ -51,14 +51,18 @@ Un jardín interactivo donde cultivas tulipanes de colores suaves mientras recib
   3. Haz clic en "▶️ Reproducir"
   4. Se abrirá YouTube en una nueva ventana con la canción de Tinny
 
-### 🌅 Ciclo Día/Noche
-- **Sincronizado con Hora Peruana (UTC-5)**
-- **4 Períodos:**
-  - Mañana (6am-12pm): Cielo azul claro ☀️
-  - Tarde (12pm-5pm): Cielo amarillo dorado ☀️
-  - Atardecer (5pm-8pm): Cielo naranja 🌅
-  - Noche (8pm-6am): Cielo oscuro con estrellas 🌙
-- **Transiciones Suaves:** 3 segundos entre cambios
+### ⏰ Reloj Adaptativo
+- **Hora del Dispositivo:**
+  - Muestra la hora local del celular/tablet
+  - Se actualiza cada segundo
+  - Funciona en cualquier zona horaria
+- **Zona Horaria:**
+  - Detecta automáticamente la zona horaria del dispositivo
+  - Muestra el nombre de la ciudad/región
+  - Ejemplos: "Lima", "New_York", "Madrid", etc.
+- **Ciclo Día/Noche:**
+  - Sincronizado con la hora local del dispositivo
+  - Cambia automáticamente según la hora
 
 ### 🎨 Diseño
 - **Interfaz Moderna:** Tailwind CSS + Glass Morphism
