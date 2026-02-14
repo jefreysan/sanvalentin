@@ -1000,35 +1000,38 @@ document.addEventListener('keydown', (e) => {
 // Ejecutar reseteo automático al cargar la página (comentar después de usar)
 // resetGarden();
 
-// Renderizar nubes SVG
-document.getElementById('cloud1').innerHTML = createCloudSVG('Made');
-document.getElementById('cloud2').innerHTML = createCloudSVG('Made');
-document.getElementById('cloud3').innerHTML = createCloudSVG('Made');
+// Esperar a que el DOM esté listo antes de inicializar
+document.addEventListener('DOMContentLoaded', () => {
+  // Renderizar nubes SVG
+  document.getElementById('cloud1').innerHTML = createCloudSVG('Made');
+  document.getElementById('cloud2').innerHTML = createCloudSVG('Made');
+  document.getElementById('cloud3').innerHTML = createCloudSVG('Made');
 
-// Inicializar el juego
-initializeGame();
+  // Inicializar el juego
+  initializeGame();
 
-generateStars();
-updateDayNightCycle();
-setInterval(updateDayNightCycle, 60000);
+  generateStars();
+  updateDayNightCycle();
+  setInterval(updateDayNightCycle, 60000);
 
-// Actualizar reloj cada segundo
-updateClock();
-updateTimezone();
-setInterval(updateClock, 1000);
+  // Actualizar reloj cada segundo
+  updateClock();
+  updateTimezone();
+  setInterval(updateClock, 1000);
 
-// Las frases aparecen al hacer clic en las nubes (no automático)
+  // Las frases aparecen al hacer clic en las nubes (no automático)
 
-setInterval(() => {
-  plants.forEach(plant => plant.updateVisuals());
-  updateStats();
-}, 60000);
+  setInterval(() => {
+    plants.forEach(plant => plant.updateVisuals());
+    updateStats();
+  }, 60000);
 
-setupAutoWatering();
-setupDailyGrowth();
+  setupAutoWatering();
+  setupDailyGrowth();
 
-createGarden();
-setTimeout(() => showMessage(), 500);
+  createGarden();
+  setTimeout(() => showMessage(), 500);
 
-// Iniciar sistema de música intermitente
-startMusicSystem();
+  // Iniciar sistema de música intermitente
+  startMusicSystem();
+});
