@@ -122,8 +122,36 @@ function stopMusicManual() {
   isMusicPlaying = false;
 }
 
+// Detectar tamaño del dispositivo
+function getDeviceSize() {
+  const width = window.innerWidth;
+  if (width < 768) return 'mobile'; // Celular
+  if (width < 1024) return 'tablet'; // Tablet
+  return 'desktop'; // Desktop
+}
+
+// Obtener tamaño de SVG según dispositivo
+function getSVGSize() {
+  const device = getDeviceSize();
+  if (device === 'mobile') return { size: 'w-16 h-16', viewBox: '0 0 120 120' };
+  if (device === 'tablet') return { size: 'w-20 h-20', viewBox: '0 0 120 120' };
+  return { size: 'w-24 h-24', viewBox: '0 0 120 120' };
+}
+
 function createCloudSVG(text = 'Made') {
-  return `<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" class="w-40 h-16">
+  const device = getDeviceSize();
+  let cloudSize = 'w-40 h-16';
+  let fontSize = '16';
+  
+  if (device === 'mobile') {
+    cloudSize = 'w-24 h-10';
+    fontSize = '10';
+  } else if (device === 'tablet') {
+    cloudSize = 'w-32 h-12';
+    fontSize = '12';
+  }
+  
+  return `<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" class="${cloudSize}">
     <!-- Nube simple y realista -->
     <g>
       <!-- Círculos principales de la nube -->
@@ -139,7 +167,7 @@ function createCloudSVG(text = 'Made') {
       <ellipse cx="100" cy="65" rx="85" ry="12" fill="#e0e0e0" opacity="0.3"/>
       
       <!-- Texto "Made" -->
-      <text x="100" y="82" font-size="16" font-weight="bold" text-anchor="middle" fill="#b0b0b0" font-family="Arial, sans-serif">
+      <text x="100" y="82" font-size="${fontSize}" font-weight="bold" text-anchor="middle" fill="#b0b0b0" font-family="Arial, sans-serif">
         Made
       </text>
     </g>
@@ -166,7 +194,8 @@ const tranquilityPhrases = [
 ];
 
 function createSunSVG() {
-  return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 drop-shadow-lg">
+  const svgSize = getSVGSize();
+  return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="${svgSize.size} drop-shadow-lg">
     <!-- Rayos del sol -->
     <g stroke="#fbbf24" stroke-width="4" stroke-linecap="round">
       <line x1="60" y1="8" x2="60" y2="28"/>
@@ -187,7 +216,8 @@ function createSunSVG() {
 }
 
 function createMoonSVG() {
-  return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 drop-shadow-lg">
+  const svgSize = getSVGSize();
+  return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="${svgSize.size} drop-shadow-lg">
     <!-- Luna creciente -->
     <circle cx="60" cy="60" r="42" fill="#f3f4f6"/>
     <circle cx="72" cy="54" r="42" fill="#1a1a2e"/>
@@ -202,7 +232,8 @@ function createMoonSVG() {
 }
 
 function createSunsetSVG() {
-  return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="w-24 h-24 drop-shadow-lg">
+  const svgSize = getSVGSize();
+  return `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="${svgSize.size} drop-shadow-lg">
     <!-- Rayos del atardecer -->
     <g stroke="#f97316" stroke-width="3" stroke-linecap="round" opacity="0.8">
       <line x1="60" y1="10" x2="60" y2="28"/>
@@ -232,7 +263,17 @@ const tulipColors = [
 ];
 
 function createTulipSVG(color, scale = 1) {
-  return `<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="w-12 h-16" style="transform: scale(${scale})">
+  const device = getDeviceSize();
+  let tulipScale = scale;
+  
+  // Ajustar escala según dispositivo
+  if (device === 'mobile') {
+    tulipScale = scale * 0.6;
+  } else if (device === 'tablet') {
+    tulipScale = scale * 0.8;
+  }
+  
+  return `<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="w-12 h-16 md:w-14 md:h-20" style="transform: scale(${tulipScale})">
     <!-- Tallo -->
     <path d="M 50 120 Q 48 100 50 80 Q 52 60 50 40" stroke="#22c55e" stroke-width="3" fill="none" stroke-linecap="round"/>
     <!-- Hoja izquierda -->

@@ -147,13 +147,29 @@ const WHATSAPP_NUMBER = "51994240168";
 ```
 Y reemplaza con tu número (sin el +).
 
-## 📱 Compatibilidad
+## 📱 Optimización para Celular
 
-- ✅ Chrome
-- ✅ Firefox
-- ✅ Safari
-- ✅ Edge
-- ✅ Navegadores móviles
+### Diseño Responsive Completo:
+- **iPhone (320px - 428px):** Optimizado completamente
+- **Samsung Mediano (360px - 480px):** Diseño perfecto
+- **Tablet (768px+):** Versión completa
+- **Desktop (1024px+):** Experiencia completa
+
+### SVG Responsive:
+- ✅ Sol, Luna y Atardecer ajustados por dispositivo
+- ✅ Tulipanes escalados dinámicamente
+- ✅ Nubes redimensionadas
+- ✅ Texto en SVG adaptado
+- ✅ Sin archivos CSS externos
+- ✅ Todo integrado en garden.js
+
+### Características Visuales:
+- Paneles con fondo semi-transparente
+- Botones con iconos grandes y claros
+- Colores vibrantes y atractivos
+- Animaciones suaves
+- Diseño minimalista en celular
+- Máxima funcionalidad en espacio reducido
 
 ## 🎯 Características Futuras
 
