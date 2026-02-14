@@ -27,6 +27,11 @@ const TINNY_SONGS = [
     id: "FaQiQ3zuzPg",
     title: "Tinny - Canción 5",
     url: "https://www.youtube.com/watch?v=FaQiQ3zuzPg"
+  },
+  {
+    id: "bmmX8x2OhdU",
+    title: "Tinny - Canción 6",
+    url: "https://www.youtube.com/watch?v=bmmX8x2OhdU"
   }
 ];
 

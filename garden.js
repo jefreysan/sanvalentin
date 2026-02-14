@@ -342,6 +342,11 @@ function getPeruTime() {
   return now.getHours();
 }
 
+// Obtener zona horaria del dispositivo
+function getDeviceTimezone() {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
 // Mostrar zona horaria del dispositivo
 function updateTimezone() {
   const timezone = getDeviceTimezone();
@@ -612,15 +617,21 @@ class Tulip {
   }
 
   render() {
+    const device = getDeviceSize();
+    const potSize = device === 'mobile' ? 'w-16 h-12' : device === 'tablet' ? 'w-20 h-16' : 'w-24 h-20';
+    const gapSize = device === 'mobile' ? 'gap-2' : 'gap-4';
+    const labelSize = device === 'mobile' ? 'text-xs' : 'text-sm';
+    const indicatorSize = device === 'mobile' ? 'text-xs' : 'text-xs';
+    
     const container = document.createElement('div');
-    container.className = 'tulip-pot flex flex-col items-center gap-4';
+    container.className = `tulip-pot flex flex-col items-center ${gapSize}`;
     container.onclick = () => this.water();
 
     const potContainer = document.createElement('div');
     potContainer.className = 'relative';
 
     const pot = document.createElement('div');
-    pot.className = 'pot-base w-20 h-16 rounded-b-3xl relative';
+    pot.className = `pot-base ${potSize} rounded-b-3xl relative`;
     pot.innerHTML = '<div class="soil absolute bottom-1 w-full h-8 rounded-b-2xl"></div>';
 
     const tulip = document.createElement('div');
@@ -639,11 +650,11 @@ class Tulip {
     potContainer.appendChild(pot);
 
     const label = document.createElement('div');
-    label.className = 'text-sm font-semibold text-green-700';
+    label.className = `font-semibold text-green-700 ${labelSize}`;
     label.textContent = this.type.name;
 
     const stageIndicator = document.createElement('div');
-    stageIndicator.className = 'text-xs text-green-600 font-medium';
+    stageIndicator.className = `text-green-600 font-medium ${indicatorSize}`;
     const stageNames = ['Semilla', 'Germinando', 'Tallo', 'Creciendo', 'Flor', 'Flor Madura', 'Flor Completa'];
     stageIndicator.textContent = `${stageNames[this.growthStage]} (${this.growthStage + 1}/7)`;
 
@@ -669,12 +680,47 @@ function createGarden() {
   updateStats();
 }
 
+function formatTo12Hour(hour, minute) {
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  const displayHour = hour % 12 || 12;
+  return `${String(displayHour).padStart(2, '0')}:${String(minute).padStart(2, '0')} ${ampm}`;
+}
+
+function getNextWateringTime() {
+  const hour = getPeruTime();
+  const minutes = new Date().getMinutes();
+  const currentTimeInMinutes = hour * 60 + minutes;
+  
+  const waterTimes = [
+    { hour: 8, minute: 0 },
+    { hour: 15, minute: 0 },
+    { hour: 20, minute: 30 }
+  ];
+  
+  // Buscar el próximo horario de riego
+  for (let wt of waterTimes) {
+    const waterTimeInMinutes = wt.hour * 60 + wt.minute;
+    if (waterTimeInMinutes > currentTimeInMinutes) {
+      return formatTo12Hour(wt.hour, wt.minute);
+    }
+  }
+  
+  // Si pasó todos los horarios, el próximo es a las 8:00 AM del día siguiente
+  return '08:00 AM';
+}
+
 function updateStats() {
   const healthyCount = plants.filter(p => p.isHealthy()).length;
   const needWaterCount = plants.filter(p => p.needsWater()).length;
   document.getElementById('plantCount').textContent = plants.length;
   document.getElementById('healthyCount').textContent = healthyCount;
   document.getElementById('needWaterCount').textContent = needWaterCount;
+  
+  // Actualizar próximo tiempo de riego
+  const nextWateringElement = document.getElementById('nextWateringTime');
+  if (nextWateringElement) {
+    nextWateringElement.textContent = getNextWateringTime();
+  }
   
   // Actualizar historial de riegos con horarios
   const wateredHours = JSON.parse(localStorage.getItem('lastAutoWaterHours') || '[]');
@@ -794,8 +840,8 @@ function resetGarden() {
   console.log('Jardín reseteado');
 }
 
-// Juego de preguntas
-const gameQuestions = [
+// Juego de preguntas - Usar CUSTOM_QUESTIONS de config.js si existe, sino usar preguntas por defecto
+const gameQuestions = (typeof CUSTOM_QUESTIONS !== 'undefined') ? CUSTOM_QUESTIONS : [
   {
     question: '¿Qué flores te regalé la primera vez?',
     options: ['Tulipanes', 'Rosas', 'Lirios'],
