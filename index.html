@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jardín de Tranquilidad - Cultiva tulipanes y encuentra paz en cada riego">
+    <meta name="theme-color" content="#10b981">
+    <title>Jardín de Tranquilidad - Cultiva Tulipanes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'coast': {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#145231',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'sway': 'sway 3s ease-in-out infinite',
+                        'pulse-soft': 'pulse-soft 2s ease-in-out infinite',
+                        'wave': 'wave 15s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        sway: {
+                            '0%, 100%': { transform: 'rotate(0deg)' },
+                            '50%': { transform: 'rotate(2deg)' },
+                        },
+                        'pulse-soft': {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.8' },
+                        },
+                        wave: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(600px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .bg-morning {
+            background: linear-gradient(180deg, #87ceeb 0%, #e0f6ff 50%, #90ee90 100%);
+        }
+
+        .bg-afternoon {
+            background: linear-gradient(180deg, #ffeb99 0%, #ffe680 30%, #ffd966 50%, #90ee90 100%);
+        }
+
+        .bg-evening {
+            background: linear-gradient(180deg, #ff9a56 0%, #ffb366 30%, #ffa366 50%, #90ee90 100%);
+        }
+
+        .bg-night {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #2d5016 100%);
+        }
+
+        .transition-bg {
+            transition: background 3s ease-in-out;
+        }
+
+        /* Transiciones suaves entre períodos */
+        body {
+            transition: background 3s ease-in-out;
+        }
+
+        #sky {
+            transition: background 3s ease-in-out;
+        }
+
+        #ocean {
+            transition: background 3s ease-in-out;
+        }
+
+        #sand {
+            transition: background 3s ease-in-out;
+        }
+
+        #vegetation {
+            transition: background 3s ease-in-out;
+        }
+
+        #celestialBody {
+            animation: celestialMove 24s linear infinite;
+        }
+
+        @keyframes celestialMove {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(100px) translateY(-50px); }
+            50% { transform: translateX(200px) translateY(-100px); }
+            75% { transform: translateX(100px) translateY(-50px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+
+        .floating-phrase {
+            position: absolute;
+            white-space: nowrap;
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 
+                0 2px 4px rgba(0, 0, 0, 0.3),
+                0 4px 8px rgba(0, 0, 0, 0.2),
+                0 0 20px rgba(0, 0, 0, 0.2);
+            animation: floatAcross 10s ease-in-out forwards;
+            pointer-events: none;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1.5px;
+            line-height: 1.8;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes floatAcross {
+            0% {
+                left: -500px;
+                opacity: 0;
+                transform: translateY(0) scale(0.8);
+            }
+            5% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            95% {
+                opacity: 1;
+                transform: translateY(-10px) scale(1);
+            }
+            100% {
+                left: 100vw;
+                opacity: 0;
+                transform: translateY(-10px) scale(0.8);
+            }
+        }
+
+        .sky-morning {
+            background: linear-gradient(180deg, #87ceeb 0%, #e0f6ff 100%);
+        }
+
+        .sky-afternoon {
+            background: linear-gradient(180deg, #ffeb99 0%, #ffe680 100%);
+        }
+
+        .sky-evening {
+            background: linear-gradient(180deg, #ff9a56 0%, #ffb366 100%);
+        }
+
+        .sky-night {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .ocean-morning {
+            background: linear-gradient(180deg, #4a90e2 0%, #2c5aa0 100%);
+        }
+
+        .ocean-afternoon {
+            background: linear-gradient(180deg, #4a90e2 0%, #2c5aa0 100%);
+        }
+
+        .ocean-evening {
+            background: linear-gradient(180deg, #2c5aa0 0%, #1a3a5c 100%);
+        }
+
+        .ocean-night {
+            background: linear-gradient(180deg, #0d1f3c 0%, #051428 100%);
+        }
+
+        .sand-morning {
+            background: linear-gradient(180deg, #d4af37 0%, #c9a961 100%);
+        }
+
+        .sand-afternoon {
+            background: linear-gradient(180deg, #d4af37 0%, #c9a961 100%);
+        }
+
+        .sand-evening {
+            background: linear-gradient(180deg, #d4a574 0%, #b8956a 100%);
+        }
+
+        .sand-night {
+            background: linear-gradient(180deg, #6b5d4f 0%, #4a3f38 100%);
+        }
+
+        .veg-morning {
+            background: linear-gradient(180deg, #7cb342 0%, #558b2f 100%);
+        }
+
+        .veg-afternoon {
+            background: linear-gradient(180deg, #8bc34a 0%, #7cb342 100%);
+        }
+
+        .veg-evening {
+            background: linear-gradient(180deg, #7cb342 0%, #558b2f 100%);
+        }
+
+        .veg-night {
+            background: linear-gradient(180deg, #2d5016 0%, #1a3a0a 100%);
+        }
+
+        .wave {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,50 Q300,0 600,50 T1200,50 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: 600px 120px;
+            animation: wave 15s linear infinite;
+        }
+
+        .wave:nth-child(2) {
+            animation: wave 10s linear infinite reverse;
+            opacity: 0.5;
+        }
+
+        .star {
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .tulip-pot {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tulip-pot:hover {
+            transform: scale(1.08);
+        }
+
+        .tulip-pot:active {
+            transform: scale(0.95);
+        }
+
+        .pot-base {
+            background: linear-gradient(135deg, #d2691e, #a0522d);
+            border: 3px solid #8b4513;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), inset -2px -2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .soil {
+            background: #654321;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .tulip-emoji {
+            animation: sway 3s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            transition: font-size 0.5s ease, opacity 0.5s ease;
+        }
+
+        .tulip-wilted {
+            opacity: 0.5;
+            filter: grayscale(100%) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .water-drop {
+            animation: fall 0.8s ease-in forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(80px);
+            }
+        }
+
+        .message-appear {
+            animation: messageAppear 4s ease-in-out forwards;
+        }
+
+        @keyframes messageAppear {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .glass-panel .text-xl {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.5px;
+        }
+
+        .glass-panel .text-sm,
+        .glass-panel .text-xs {
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-water {
+            background: linear-gradient(135deg, #4da6ff, #2196f3);
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-water:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.5);
+        }
+
+        .btn-water:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body class="bg-morning transition-bg">
+    <div class="w-full h-full relative overflow-hidden">
+        <!-- Sky -->
+        <div class="absolute top-0 w-full h-3/5 sky-morning transition-bg" id="sky"></div>
+
+        <!-- Celestial Body (Sun/Moon) -->
+        <div class="absolute top-8 left-12 opacity-0 transition-opacity duration-2000" id="celestialBody"></div>
+
+        <!-- Floating Phrases -->
+        <div class="absolute top-0 w-full h-1/3 pointer-events-none overflow-visible" id="phrasesContainer" style="z-index: 5;"></div>
+
+        <!-- Stars -->
+        <div class="absolute top-0 w-full h-3/5 opacity-0 transition-opacity duration-2000 pointer-events-none" id="stars"></div>
+
+        <!-- Clouds with "Made" text -->
+        <div class="absolute top-1/3 left-1/4 opacity-80 animate-float cursor-pointer hover:opacity-100 transition-opacity" style="animation-delay: 0s;" id="cloud1" onclick="showFloatingPhrase()"></div>
+        <div class="absolute top-1/3 left-1/2 opacity-80 animate-float cursor-pointer hover:opacity-100 transition-opacity" style="animation-delay: 5s;" id="cloud2" onclick="showFloatingPhrase()"></div>
+        <div class="absolute top-1/3 right-1/4 opacity-80 animate-float cursor-pointer hover:opacity-100 transition-opacity" style="animation-delay: 10s;" id="cloud3" onclick="showFloatingPhrase()"></div>
+
+        <!-- Vegetation -->
+        <div class="absolute bottom-2/5 w-full h-1/12 veg-morning transition-bg" id="vegetation"></div>
+
+        <!-- Sand -->
+        <div class="absolute bottom-1/4 w-full h-3/20 sand-morning transition-bg" id="sand"></div>
+
+        <!-- Ocean -->
+        <div class="absolute bottom-0 w-full h-1/4 ocean-morning transition-bg overflow-hidden" id="ocean">
+            <div class="wave absolute w-full h-full"></div>
+            <div class="wave absolute w-full h-full"></div>
+        </div>
+
+        <!-- Ground (hidden, for structure) -->
+        <div class="absolute bottom-0 w-full h-2/5 pointer-events-none"></div>
+
+        <!-- Plants Area -->
+        <div class="absolute bottom-12 w-full h-80 flex justify-around items-end px-12 z-10" id="plantsArea"></div>
+
+        <!-- Message -->
+        <div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none z-50" id="message"></div>
+    </div>
+
+    <!-- Info Panel -->
+    <div class="fixed top-6 left-6 glass-panel rounded-2xl p-6 z-40 shadow-lg">
+        <div class="text-xl font-bold text-green-700 mb-4">🌷 Mi Jardín</div>
+        <div class="space-y-2 text-sm">
+            <div class="flex justify-between gap-6">
+                <span class="text-green-600 font-semibold">Tulipanes:</span>
+                <span class="text-green-900 font-bold" id="plantCount">0</span>
+            </div>
+            <div class="flex justify-between gap-6">
+                <span class="text-green-600 font-semibold">Saludables:</span>
+                <span class="text-green-900 font-bold" id="healthyCount">0</span>
+            </div>
+            <div class="flex justify-between gap-6">
+                <span class="text-green-600 font-semibold">Necesitan agua:</span>
+                <span class="text-green-900 font-bold" id="needWaterCount">0</span>
+            </div>
+            <hr class="my-2 border-green-200">
+            <div class="text-xs text-green-600 font-semibold mb-1">Riegos hoy:</div>
+            <div class="text-sm text-green-700" id="wateringHistory">
+                <span class="text-xs">8:00 AM: ✗ | 3:00 PM: ✗ | 8:30 PM: ✗</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clock -->
+    <div class="fixed top-6 right-6 glass-panel rounded-2xl px-6 py-4 z-40 shadow-lg text-center">
+        <div class="text-xs text-green-600 font-semibold">Hora (Perú)</div>
+        <div class="text-2xl font-bold text-green-700 mt-2" id="clockDisplay">00:00</div>
+        <div class="text-xs text-green-500 mt-2">Etapa: <span id="currentStage">1</span>/7</div>
+    </div>
+
+    <!-- Game Button -->
+    <button onclick="openGame()" class="fixed bottom-6 left-6 glass-panel rounded-full px-6 py-3 z-40 shadow-lg text-green-700 font-bold hover:scale-110 transition-transform">
+        🎮 Juego
+    </button>
+
+    <!-- Game Modal -->
+    <div id="gameModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="glass-panel rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="text-3xl font-bold text-green-700 mb-8 text-center font-playfair">Preguntas Especiales</div>
+            <div id="gameContent" class="space-y-6"></div>
+            <button onclick="closeGame()" class="mt-8 w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-4 rounded-xl transition-all transform hover:scale-105 active:scale-95">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <script src="garden.js"></script>
+</body>
+</html>
